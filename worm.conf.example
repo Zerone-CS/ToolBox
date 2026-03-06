@@ -1,0 +1,73 @@
+# ===== 邮箱 SMTP 配置 =====
+#
+# 使用说明：
+# 1. 复制此文件为 worm.conf
+# 2. 填写你的邮箱 SMTP 信息
+# 3. 将配置文件放在以下任意位置：
+#    - ~/.config/worm/worm.conf
+#    - ~/.worm.conf
+#    - 程序同目录/worm.conf
+#
+# 注意：smtp_pass 是邮箱授权码，不是登录密码！
+
+# ===== QQ 邮箱示例 =====
+# 获取授权码：QQ邮箱 → 设置 → 账户 → POP3/IMAP/SMTP服务 → 生成授权码
+#
+# [smtp]
+# smtp_host = smtp.qq.com
+# smtp_port = 465
+# smtp_user = your_qq_number@qq.com
+# smtp_pass = 你的QQ邮箱授权码（16位字符）
+# sender_name = 文件快传
+
+# ===== 163 邮箱示例 =====
+# 获取授权码：163邮箱 → 设置 → POP3/SMTP/IMAP → 开启服务 → 设置授权码
+#
+# [smtp]
+# smtp_host = smtp.163.com
+# smtp_port = 465
+# smtp_user = your_account@163.com
+# smtp_pass = 你的163邮箱授权码
+# sender_name = 文件快传
+
+# ===== Gmail 示例 =====
+# 获取应用专用密码：Google账户 → 安全性 → 两步验证 → 应用专用密码
+#
+# [smtp]
+# smtp_host = smtp.gmail.com
+# smtp_port = 465
+# smtp_user = your_account@gmail.com
+# smtp_pass = 你的应用专用密码（16位字符）
+# sender_name = File Transfer
+
+# ===== 126 邮箱示例 =====
+# [smtp]
+# smtp_host = smtp.126.com
+# smtp_port = 465
+# smtp_user = your_account@126.com
+# smtp_pass = 你的126邮箱授权码
+# sender_name = 文件快传
+
+# ===== Outlook/Hotmail 示例 =====
+# [smtp]
+# smtp_host = smtp-mail.outlook.com
+# smtp_port = 587
+# smtp_user = your_account@outlook.com
+# smtp_pass = 你的邮箱密码
+# sender_name = File Transfer
+
+# ===== 企业邮箱示例 =====
+# [smtp]
+# smtp_host = smtp.exmail.qq.com
+# smtp_port = 465
+# smtp_user = your_account@company.com
+# smtp_pass = 你的邮箱密码或授权码
+# sender_name = 文件快传
+
+# ===== 请在下方填写你的配置 =====
+[smtp]
+smtp_host = smtp.example.com
+smtp_port = 465
+smtp_user = your_email@example.com
+smtp_pass = your_authorization_code_here
+sender_name = Worm File Transfer
