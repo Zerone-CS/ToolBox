@@ -143,7 +143,7 @@ smtp_pass = 你的QQ邮箱授权码
 sender_name = 文件快传
 ```
 
-> 💡 **获取 QQ 邮箱授权码**：登录 QQ 邮箱 → 设置 → 账户 → POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务 → 开启 SMTP 服务 → 生成授权码
+> 💡 **获取 QQ 邮箱授权码**：登录 QQ 邮箱 → 设置 → “账号与安全” → “安全设置”→ POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务 → 开启 SMTP 服务 → 生成授权码
 
 #### 163 邮箱
 
