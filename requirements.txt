@@ -1,0 +1,10 @@
+# NPU Container Manager Requirements
+
+# This project uses only Python standard library
+# No external dependencies required for core functionality
+
+# Optional: For development and testing
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=4.0.0
+# mypy>=0.950
