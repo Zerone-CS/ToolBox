@@ -83,50 +83,76 @@ worm ./report.xlsx manager@company.com
 ## ✨ 特性
 
 - 🚀 **极简使用** - 一行命令即可发送文件
+- 🔧 **一键安装** - `worm setup` 自动配置全局命令和配置文件
+- 🌍 **跨平台支持** - Linux、macOS、Windows 全平台自动适配
 - 📦 **智能打包** - 自动将目录打包为 ZIP 文件
 - 🔒 **安全可靠** - 支持 SSL/TLS 加密传输
 - 🌐 **广泛兼容** - 支持 QQ、163、Gmail 等主流邮箱
 - 📊 **友好提示** - 自动计算文件大小并显示进度
 - ⚡ **轻量无依赖** - 仅使用 Python 标准库
+- ✅ **配置检查** - `worm setup --check` 验证安装状态
 
 ## 📦 安装
 
-### 方式一：直接使用
+### 方式一：自动安装（推荐）⭐
 
 ```bash
 # 克隆仓库
 git clone https://github.com/yourusername/worm.git
 cd worm
 
-# 添加执行权限
-chmod +x worm.py
+# 一键安装（自动配置全局命令和配置文件）
+python3 worm.py setup
+# Linux/macOS 可能需要 sudo 权限：sudo python3 worm.py setup
 
-# 创建软链接（可选，方便全局使用）
-sudo ln -s $(pwd)/worm.py /usr/local/bin/worm
+# 检查安装状态
+worm setup --check
 ```
 
-### 方式二：复制到系统路径
+**自动安装会完成以下操作：**
+- ✅ 注册全局命令 `worm`（Linux/macOS 创建符号链接，Windows 配置 PATH）
+- ✅ 自动生成配置文件到 `~/.config/worm/worm.conf`
+- ✅ 检查配置完整性并提示需要填写的字段
+
+### 方式二：手动安装
 
 ```bash
-# 复制到系统路径
-sudo cp worm.py /usr/local/bin/worm
-sudo chmod +x /usr/local/bin/worm
+# 克隆仓库
+git clone https://github.com/yourusername/worm.git
+cd worm
+
+# 添加执行权限（Linux/macOS）
+chmod +x worm.py
+
+# 创建软链接
+sudo ln -s $(pwd)/worm.py /usr/local/bin/worm
 ```
 
 ## ⚙️ 配置
 
-首次使用前需要配置邮箱 SMTP 信息：
+### 自动配置（推荐）
+
+运行 `worm setup` 后会自动生成配置文件，然后编辑配置文件填写真实的 SMTP 信息：
+
+```bash
+# 编辑配置文件
+vim ~/.config/worm/worm.conf  # 或使用你喜欢的编辑器
+```
+
+### 手动配置
+
+如果需要手动配置，可以复制配置文件模板：
 
 ```bash
 # 复制配置文件模板
-cp worm.conf.example worm.conf
+cp worm.conf.example ~/.config/worm/worm.conf
 
 # 编辑配置文件
-vim worm.conf  # 或使用你喜欢的编辑器
+vim ~/.config/worm/worm.conf
 ```
 
-配置文件支持三个位置（按优先级排序）：
-1. `~/.config/worm/worm.conf`
+**配置文件搜索顺序（按优先级）：**
+1. `~/.config/worm/worm.conf`（推荐位置）
 2. `~/.worm.conf`
 3. `程序同目录/worm.conf`
 
@@ -171,15 +197,27 @@ sender_name = File Transfer
 
 ## 🚀 使用方法
 
-### 基本语法
+### 命令语法
 
 ```bash
+# 发送文件
 worm <文件或目录路径> <目标邮箱>
+
+# 自动安装配置
+worm setup
+
+# 检查配置状态
+worm setup --check
 ```
 
 ### 使用示例
 
 ```bash
+# 首次使用：自动安装
+python3 worm.py setup
+# 然后编辑配置文件填写 SMTP 信息
+vim ~/.config/worm/worm.conf
+
 # 发送单个文件
 worm ./report.pdf zhangsan@qq.com
 
@@ -191,11 +229,36 @@ worm /var/log/app.log support@gmail.com
 
 # 使用绝对路径
 worm ~/Documents/presentation.pptx colleague@company.com
+
+# 检查配置状态
+worm setup --check
 ```
 
 ### 输出示例
 
 ```bash
+# 自动安装输出
+$ python3 worm.py setup
+
+🚀 worm 安装向导
+========================================
+
+🔧 [1/2] 注册全局命令 worm ...
+  ✅ 已为 /path/to/worm.py 添加可执行权限
+  ✅ 已创建符号链接: /usr/local/bin/worm → /path/to/worm.py
+
+🔧 [2/2] 检查配置文件 ...
+  ✅ 已生成默认配置文件: ~/.config/worm/worm.conf
+  ⚠️  以下字段看起来还是占位符，请修改为真实值: smtp_user, smtp_pass
+     编辑配置文件: ~/.config/worm/worm.conf
+
+========================================
+📋 待完成事项:
+   1. 配置字段未填写真实值
+
+完成上述步骤后，再次运行 worm setup --check 检查。
+
+# 发送文件输出
 $ worm ./report.pdf zhangsan@qq.com
 📤 正在发送 report.pdf → zhangsan@qq.com ...
 ✅ 发送成功！
@@ -207,6 +270,17 @@ $ worm ./my_project zhangsan@qq.com
 ```
 
 ## 📋 功能说明
+
+### 自动安装功能
+
+- **跨平台支持**：
+  - Linux/macOS：自动创建 `/usr/local/bin/worm` 符号链接
+  - Windows：自动创建 `worm.cmd` 启动脚本并配置用户 PATH
+- **配置管理**：
+  - 自动生成配置文件到标准位置
+  - 检测配置字段完整性
+  - 识别未填写的占位符值
+- **状态检查**：使用 `worm setup --check` 验证安装和配置状态
 
 ### 文件大小限制
 
@@ -272,6 +346,22 @@ A: 请检查：
 - 是否使用了**授权码**而非登录密码
 - 是否已在邮箱设置中开启 SMTP 服务
 - 配置文件中的邮箱地址和授权码是否正确
+- 运行 `worm setup --check` 检查配置状态
+
+### Q: 如何检查 worm 是否安装成功？
+
+A: 运行以下命令检查：
+```bash
+worm setup --check
+```
+该命令会检查全局命令注册和配置文件状态。
+
+### Q: Windows 下如何使用？
+
+A: Windows 用户运行 `python3 worm.py setup` 后：
+- 会自动创建 `worm.cmd` 启动脚本
+- 自动将脚本目录添加到用户 PATH
+- 重启终端后即可使用 `worm` 命令
 
 ### Q: 支持哪些邮箱服务？
 
