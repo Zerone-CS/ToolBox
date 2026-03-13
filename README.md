@@ -19,6 +19,8 @@ NPU Container Manager is a command-line tool for managing Docker containers with
 - 🔧 **Custom Configuration**: Flexible volume mounting and shared memory configuration
 - 📊 **Container Monitoring**: View container status, logs, and resource usage
 - 🛡️ **Conflict Resolution**: Intelligent handling of container name conflicts
+- 🤖 **AI Coding Assistant Support**: Optional integration with Claude Code / Codex for in-container development
+- 🔐 **Secure Configuration**: Sensitive information managed via config.env (excluded from Git)
 
 ### Prerequisites
 
@@ -98,13 +100,41 @@ The tool will generate a startup script and create the container automatically.
 
 ### Configuration
 
+#### Basic Configuration
+
 Default settings can be modified in the `NPUContainerManager` class:
 
 ```python
-DEFAULT_IMAGE = "quay.io/ascend/vllm-ascend:main"
+DEFAULT_IMAGE = "quay.io/ascend/cann:8.1.rc1-910b-ubuntu22.04-py3.10"
 DEFAULT_SHM_SIZE = "16g"
 SCRIPT_OUTPUT_DIR = Path.home() / "npu_container_scripts"
 ```
+
+#### Claude Code / Codex Integration (Optional)
+
+To enable AI coding assistant support inside containers:
+
+1. Copy the example configuration file:
+   ```bash
+   cp config.env.example config.env
+   ```
+
+2. Edit `config.env` and fill in your credentials:
+   ```bash
+   # Node.js path (required for Claude Code / Codex)
+   NODEJS_HOST_PATH=/path/to/nodejs
+
+   # Anthropic API configuration (for Claude Code)
+   ANTHROPIC_BASE_URL=https://api.anthropic.com
+   ANTHROPIC_AUTH_TOKEN=your_api_key_here
+
+   # Codex API configuration (if using Codex)
+   CODEX_API_KEY=your_codex_key_here
+   ```
+
+3. When creating a container, select "Yes" when prompted to enable Claude Code / Codex support
+
+**Security Note**: The `config.env` file is automatically excluded from Git to protect your API keys.
 
 ### Generated Scripts
 
@@ -154,6 +184,8 @@ NPU Container Manager 是一个用于管理华为昇腾 NPU 设备 Docker 容器
 - 🔧 **自定义配置**：灵活的卷挂载和共享内存配置
 - 📊 **容器监控**：查看容器状态、日志和资源使用情况
 - 🛡️ **冲突解决**：智能处理容器名称冲突
+- 🤖 **AI 编程助手支持**：可选集成 Claude Code / Codex，支持容器内开发
+- 🔐 **安全配置**：敏感信息通过 config.env 管理（已排除在 Git 之外）
 
 ### 系统要求
 
@@ -233,13 +265,41 @@ npu-manager
 
 ### 配置说明
 
+#### 基础配置
+
 可以在 `NPUContainerManager` 类中修改默认设置：
 
 ```python
-DEFAULT_IMAGE = "quay.io/ascend/vllm-ascend:main"
+DEFAULT_IMAGE = "quay.io/ascend/cann:8.1.rc1-910b-ubuntu22.04-py3.10"
 DEFAULT_SHM_SIZE = "16g"
 SCRIPT_OUTPUT_DIR = Path.home() / "npu_container_scripts"
 ```
+
+#### Claude Code / Codex 集成（可选）
+
+要在容器内启用 AI 编程助手支持：
+
+1. 复制示例配置文件：
+   ```bash
+   cp config.env.example config.env
+   ```
+
+2. 编辑 `config.env` 并填入您的凭据：
+   ```bash
+   # Node.js 路径（Claude Code / Codex 所需）
+   NODEJS_HOST_PATH=/path/to/nodejs
+
+   # Anthropic API 配置（用于 Claude Code）
+   ANTHROPIC_BASE_URL=https://api.anthropic.com
+   ANTHROPIC_AUTH_TOKEN=your_api_key_here
+
+   # Codex API 配置（如果使用 Codex）
+   CODEX_API_KEY=your_codex_key_here
+   ```
+
+3. 创建容器时，在提示是否启用 Claude Code / Codex 支持时选择"是"
+
+**安全提示**：`config.env` 文件已自动排除在 Git 之外，以保护您的 API 密钥。
 
 ### 生成的脚本
 

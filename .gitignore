@@ -52,6 +52,7 @@ npu_container_scripts/
 # Environment variables
 .env
 .env.local
+config.env
 
 # Temporary files
 *.tmp
