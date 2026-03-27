@@ -94,19 +94,73 @@ worm ./report.xlsx manager@company.com
 
 ## 📦 安装
 
-### 方式一：自动安装（推荐）⭐
+### 方式一：使用 AI Agent 自动部署（推荐）⭐
+
+如果你使用 AI Agent（如 Claude Code、Cursor 等），可以直接让 Agent 帮你完成部署：
+
+**对 Agent 说：**
+> "帮我部署 worm 项目，仓库地址是 git@github.com:Zerone-CS/ToolBox.git，分支是 worm"
+
+**Agent 会自动执行以下步骤：**
 
 ```bash
-# 克隆仓库
-git clone https://github.com/yourusername/worm.git
-cd worm
+# 1. 克隆仓库（使用 SSH 方式）
+git clone git@github.com:Zerone-CS/ToolBox.git
+cd ToolBox
+git checkout worm
 
-# 一键安装（自动配置全局命令和配置文件）
+# 2. 运行自动安装脚本
+python3 worm.py setup
+# 如果提示权限不足，Agent 会使用：sudo python3 worm.py setup
+
+# 3. 检查安装状态
+worm setup --check
+
+# 4. 编辑配置文件（Agent 会提示你填写 SMTP 信息）
+# Linux/macOS: ~/.config/worm/worm.conf
+# Windows: %USERPROFILE%\.config\worm\worm.conf
+```
+
+**Agent 部署的优势：**
+- ✅ 自动检测系统环境并选择合适的安装方式
+- ✅ 自动处理权限问题（sudo）
+- ✅ 自动验证安装结果
+- ✅ 智能提示配置步骤
+- ✅ 一次性完成所有操作，无需手动输入命令
+
+**配置 SMTP 信息：**
+
+安装完成后，Agent 会提示你编辑配置文件。你可以直接告诉 Agent：
+
+> "帮我配置 QQ 邮箱，邮箱是 xxx@qq.com，授权码是 xxx"
+
+Agent 会自动修改配置文件中的以下字段：
+```ini
+[smtp]
+smtp_host = smtp.qq.com
+smtp_port = 465
+smtp_user = xxx@qq.com
+smtp_pass = 你的授权码
+sender_name = 文件快传
+```
+
+### 方式二：手动安装
+
+```bash
+# 1. 克隆仓库
+git clone git@github.com:Zerone-CS/ToolBox.git
+cd ToolBox
+git checkout worm
+
+# 2. 运行安装脚本
 python3 worm.py setup
 # Linux/macOS 可能需要 sudo 权限：sudo python3 worm.py setup
 
-# 检查安装状态
+# 3. 检查安装状态
 worm setup --check
+
+# 4. 编辑配置文件
+vim ~/.config/worm/worm.conf  # 或使用你喜欢的编辑器
 ```
 
 **自动安装会完成以下操作：**
@@ -114,19 +168,6 @@ worm setup --check
 - ✅ 自动生成配置文件到 `~/.config/worm/worm.conf`
 - ✅ 检查配置完整性并提示需要填写的字段
 
-### 方式二：手动安装
-
-```bash
-# 克隆仓库
-git clone https://github.com/yourusername/worm.git
-cd worm
-
-# 添加执行权限（Linux/macOS）
-chmod +x worm.py
-
-# 创建软链接
-sudo ln -s $(pwd)/worm.py /usr/local/bin/worm
-```
 
 ## ⚙️ 配置
 
