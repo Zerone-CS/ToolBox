@@ -16,11 +16,11 @@ export HOST_MODEL_DIR=你的工作目录路径 # 这里输入你的工作目录�
 export CONTAINER_MODEL_DIR=/root+你的工作目录路径   # 这里输入容器内的目标路径
 
 # 通过 --device /dev/davinciN 的编号指定绑定哪张NPU到容器；
-# 绑定多卡就多加几条 --device /dev/davinciN（例如再加一行：  --device /dev/davinci1 \）。
+# 绑定多卡就多加几条 --device /dev/davinciN（例如再加一行：  --device /dev/davinci1 \）
+# 注意，A3机器（910C）的每张NPU是两张910B合并起来的
 docker run -d \
   --name ${NAME} \
   --restart unless-stopped \
-  --privileged \
   --network host \
   --shm-size 16g \
   --device /dev/davinci0 \
